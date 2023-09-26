@@ -23,6 +23,9 @@
                 </q-select>
                 <div>
                     <q-btn label="Save" type="submit" color="primary" />
+                    <router-link :to="{ name: 'PostList' }">
+                        <q-btn color="blue" style="margin-left: 10px;" label="Back"></q-btn>
+                    </router-link>
                 </div>
             </q-form>
         </div>
@@ -47,7 +50,7 @@ const onSubmit = async () => {
     const response = await PostService.createPost(post.value);
     if (response) {
         alert('Successfully added')
-        router.push({name:'PostList'})
+        router.push({ name: 'PostList' })
     }
 
 }

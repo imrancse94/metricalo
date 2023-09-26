@@ -5,6 +5,11 @@
             <q-table title="Blog" :rows="paginatedItems" :columns="columns" :rows-per-page-options="[0]"
                 :hide-pagination="true" row-key="name" dense>
 
+                <template v-slot:top-left>
+                    <router-link :to="{ name: 'AddPost' }">
+                        <q-btn color="blue" style="margin-left: 10px;" label="Add Post"></q-btn>
+                    </router-link>
+                </template>
                 <template v-slot:top-right>
                     <div class="q-pa-md">
                         <q-select filled v-model="user_id" :options="userList" label="User List" emit-value map-options
@@ -29,9 +34,10 @@
                 <template #body-cell-action="props">
                     <q-td :props="props">
                         <router-link :to="`post/${props.row.id}`">
-                            <q-btn dense flat round color="blue" field="edit" icon="edit" ></q-btn>
+                            <q-btn dense flat round color="blue" field="edit" icon="edit"></q-btn>
                         </router-link>
-                        <q-btn dense flat round color="red" field="Delete" icon="delete" @click="deleteById(props.row.id)" ></q-btn>
+                        <q-btn dense flat round color="red" field="Delete" icon="delete"
+                            @click="deleteById(props.row.id)"></q-btn>
                     </q-td>
                 </template>
             </q-table>
@@ -159,14 +165,14 @@ const getNameByUserId = (id) => {
     return name;
 };
 
-const deleteById = async(id)=>{
-    if(id > 0){
-        if(confirm("Are you sure you want to delete?")){
-           const response = await PostService.deletePost(id);
-           console.log(response);
-           if(response){
-            alert('Succesfully deleted');
-           }
+const deleteById = async (id) => {
+    if (id > 0) {
+        if (confirm("Are you sure you want to delete?")) {
+            const response = await PostService.deletePost(id);
+            console.log(response);
+            if (response) {
+                alert('Succesfully deleted');
+            }
         }
     }
 }
